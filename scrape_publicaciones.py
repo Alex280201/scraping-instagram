@@ -5,6 +5,8 @@ import re
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 
+from sesion_util import abrir_con_sesion
+
 LIMITE = None
 
 
@@ -54,9 +56,7 @@ if LIMITE:
 publicaciones = []
 
 with sync_playwright() as p:
-    navegador = p.chromium.launch(headless=False)
-    contexto = navegador.new_context(storage_state="sesion.json")
-    pagina = contexto.new_page()
+    navegador, contexto, pagina = abrir_con_sesion(p)
 
     for i, href in enumerate(enlaces, 1):
         url = "https://www.instagram.com" + href

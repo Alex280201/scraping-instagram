@@ -3,12 +3,12 @@ import random
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 
+from sesion_util import abrir_con_sesion
+
 USUARIO = "alexchicango"
 
 with sync_playwright() as p:
-    navegador = p.chromium.launch(headless=False)
-    contexto = navegador.new_context(storage_state="sesion.json")
-    pagina = contexto.new_page()
+    navegador, contexto, pagina = abrir_con_sesion(p)
     pagina.goto(f"https://www.instagram.com/{USUARIO}/")
     pagina.wait_for_selector("header", timeout=20000)
     pagina.wait_for_timeout(random.randint(2000, 4000))

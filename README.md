@@ -23,7 +23,10 @@ Exportar los resultados a archivos JSON y CSV.
 Estructura del proyecto
 
 scraping-instagram/
+├── scraper.py
+├── sesion_util.py
 ├── guardar_sesion.py
+├── depurar_datos.py
 ├── perfil.py
 ├── scrape_perfil.py
 ├── scrape_publicaciones.py
@@ -60,6 +63,19 @@ playwright install chromium
 Uso
 
 Ejecutar los scripts desde la terminal con el entorno virtual activado. Antes de ejecutar los scripts que requieren una sesión, debe configurarse el acceso de forma segura.
+
+Flujo de uso:
+
+1. python guardar_sesion.py   (inicia sesión una vez y crea sesion.json)
+2. python scraper.py          (todo en uno: extrae, limpia y exporta)
+
+Salida: instagram_publicaciones.xlsx (hojas Perfil y Publicaciones),
+instagram_datos.json (perfil + resumen + publicaciones) e instagram_publicaciones.csv.
+
+Los scripts anteriores (scrape_perfil.py, scrape_publicaciones.py, depurar_datos.py)
+siguen disponibles si se quiere ejecutar cada etapa por separado.
+
+Si Instagram cierra la sesión, los scripts avisan y basta con repetir el paso 1.
 
 Los resultados se guardan localmente en archivos JSON o CSV, según el script ejecutado.
 

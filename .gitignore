@@ -1,12 +1,38 @@
 
+
+# Entorno virtual de Python
 venv/
+.venv/
+
+# Archivos temporales de Python
 __pycache__/
+*.py[cod]
+
+# Variables de entorno y credenciales
 .env
+.env.*
+!.env.example
+
+# Sesión y perfil de Chrome: información privada
 sesion.json
+.chrome_perfil/
+
+# Archivos HTML y JSON generados durante el scraping
 perfil.html
 datos_perfil.json
 datos_completos.json
-publicaciones.csv
 perfil_limpio.json
+instagram_datos.json
+
+# Archivos CSV generados durante el scraping
+publicaciones.csv
 publicaciones_limpias.csv
+instagram_publicaciones.csv
+
+# Archivos Excel generados durante el scraping
 publicaciones_limpias.xlsx
+instagram_publicaciones.xlsx
+
+# Archivos de registro
+*.log
+
