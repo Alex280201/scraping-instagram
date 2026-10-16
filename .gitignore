@@ -23,16 +23,22 @@ datos_perfil.json
 datos_completos.json
 perfil_limpio.json
 instagram_datos.json
+instagram_conexiones.json
 
 # Archivos CSV generados durante el scraping
 publicaciones.csv
 publicaciones_limpias.csv
 instagram_publicaciones.csv
+instagram_seguidores.csv
+instagram_seguidos.csv
 
 # Archivos Excel generados durante el scraping
 publicaciones_limpias.xlsx
 instagram_publicaciones.xlsx
+instagram_conexiones.xlsx
 
 # Archivos de registro
 *.log
 
+debug_*.png
+debug_*.html

@@ -19,11 +19,13 @@ Consultar información de un perfil de Instagram.
 Recopilar enlaces de publicaciones.
 Extraer información disponible de publicaciones.
 Exportar los resultados a archivos JSON y CSV.
+Extraer la lista de seguidores y de seguidos, limpiarla y cruzarla (mutuos, quién no te sigue de vuelta).
 
 Estructura del proyecto
 
 scraping-instagram/
 ├── scraper.py
+├── conexiones.py
 ├── sesion_util.py
 ├── guardar_sesion.py
 ├── depurar_datos.py
@@ -71,6 +73,12 @@ Flujo de uso:
 
 Salida: instagram_publicaciones.xlsx (hojas Perfil y Publicaciones),
 instagram_datos.json (perfil + resumen + publicaciones) e instagram_publicaciones.csv.
+
+Además, scraper.py extrae seguidores y seguidos (EXTRAER_CONEXIONES = True) y genera un
+documento aparte: instagram_conexiones.xlsx (hojas Resumen, Seguidores, Seguidos y
+"No me siguen de vuelta"), instagram_conexiones.json, instagram_seguidores.csv e
+instagram_seguidos.csv. También puede ejecutarse solo con:  python conexiones.py
+Si una lista queda incompleta, la hoja Resumen lo indica y marca el cruce como no confiable.
 
 Los scripts anteriores (scrape_perfil.py, scrape_publicaciones.py, depurar_datos.py)
 siguen disponibles si se quiere ejecutar cada etapa por separado.

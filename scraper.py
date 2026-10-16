@@ -14,10 +14,12 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
+from conexiones import exportar_conexiones, extraer_conexiones
 from sesion_util import abrir_con_sesion
 
 # ---------------- Configuración ----------------
 USUARIO = "alexchicango"
+EXTRAER_CONEXIONES = True   # True = también extrae seguidores y seguidos (documento aparte)
 LIMITE = None          # None = todas las publicaciones; o un número para probar (ej. 5)
 MAX_ENLACES = 500      # tope de seguridad al hacer scroll
 ZONA = ZoneInfo("America/Guayaquil")  # Ecuador (UTC-5)
@@ -199,7 +201,7 @@ def exportar(perfil, publicaciones, errores):
 
 # ---------------- Programa principal ----------------
 def main():
-    crudas, errores = [], []
+    crudas, errores, conexiones = [], [], None
     with sync_playwright() as p:
         navegador, contexto, pagina = abrir_con_sesion(p)
 
@@ -217,7 +219,17 @@ def main():
                 errores.append({"href": href, "error": str(e).splitlines()[0]})
                 print(f"[{i}/{len(enlaces)}] ERROR en {href}: {str(e).splitlines()[0]}")
             pagina.wait_for_timeout(pausa(3, 6))
+
+        # Seguidores y seguidos (misma sesión; si falla no se pierden las publicaciones)
+        if EXTRAER_CONEXIONES:
+            try:
+                conexiones = extraer_conexiones(pagina, USUARIO, perfil)
+            except Exception as e:
+                print(f"\nERROR en seguidores/seguidos: {str(e).splitlines()[0]}")
         navegador.close()
+
+    if conexiones:
+        exportar_conexiones(USUARIO, conexiones)
 
     if not crudas:
         raise SystemExit("No se extrajo ninguna publicación; no se generaron archivos.")
